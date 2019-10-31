@@ -33,7 +33,6 @@ class Game {
         let getUserSelection = this.drawCardForUser();
         let damageOfComputerSelection = getComputerSelection[0].damage;
         let damageOfUserSelection = getUserSelection[0].damage;
-        debugger;
 
         if (damageOfComputerSelection > damageOfUserSelection) {
             this.computerPoints = ++this.computerPoints;
@@ -62,6 +61,8 @@ class Game {
         let shuffled = this.cards.sort(() => { return .5 - Math.random() });
         let selected = shuffled.slice(0, 1);
 
+        document.getElementById('pokemon-image-user').src = `./assets/images/${selected[0].name}.svg`;
+
         arrayRemove(this.cards, selected);
         this.playedCardsHuman.push(selected);
 
@@ -71,6 +72,8 @@ class Game {
     drawCardForComputer = () => {
         let shuffled = this.cards.sort(() => { return .5 - Math.random() });
         let selected = shuffled.slice(0, 1);
+
+        document.getElementById('pokemon-image-computer').src = `./assets/images/${selected[0].name}.svg`;
 
         arrayRemove(this.cards, selected);
         this.playedCardsComputer.push(selected);
@@ -84,6 +87,10 @@ const game = new Game(nameOfPlayer, nameOfComputer);
 document.getElementById("player1-name").innerHTML = humanPlayer.playerName;
 document.getElementById("player2-name").innerHTML = computerPlayer.playerName;
 document.getElementById("draw").addEventListener("click", game.draw);
+
+const imagess = document.getElementById("image").innerHTML = cardsData[0].image;
+
+console.log(imagess)
 
 function arrayRemove(arr, value) {
     for (var i = 0; i < arr.length; i++) {
