@@ -16,15 +16,38 @@
 </head>
 
 <body>
-    <h1 id="winner-message"></h1>
-    <h2>Rounds: <span id="rounds">0</span></h2>
-    <h3>Player 1: <span id="player1-name"></span></h3>
-    <p id="player1-points">0</p>
-    <h3>Player 2: <span id="player2-name"></span></h3>
-    <p id="player2-points">0</p>
 
-    <img id="pokemon-image-user" src="./assets/images/Pokemon.svg" />
-    <img id="pokemon-image-computer" src="./assets/images/Pokemon.svg" />
+    <header>
+        <div class="user-metrics">
+            <h4>Player 1: <span id="player1-name"></span></h4>
+            <p id="player1-points">0</p>
+        </div>
+
+        <div class="rounds-container">
+            <h3>Round <span id="rounds">0</span></h3>
+            <p class="draws-counter">Draw # 1 of 3</p>
+        </div>
+
+
+        <div class="computer-metrics">
+            <h4>Player 2: <span id="player2-name"></span></h4>
+            <p id="player2-points">0</p>
+        </div>
+    </header>
+
+    <h2 id="round-winner-message"></h2>
+
+    <section class="cards-container">
+        <div class="card draw-card-user">
+            <img id="pokemon-image-user" src="./assets/images/Pokemon.svg" />
+            <h1 id="damage-number-user"></h1>
+        </div>
+
+        <div class="card draw-card-computer">
+            <img id="pokemon-image-computer" src="./assets/images/Pokemon.svg" />
+            <h1 id="damage-number-computer"></h1>
+        </div>
+    </section>
 
     <div class="draw-container">
         <button id="draw">Draw!</button>

@@ -5,18 +5,23 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  text-transform: uppercase;
 
   --color-background-app:  radial-gradient(150.44% 150.44% at 50% 36.28%, #F6C744 0%, #FC9C27 100%);
   --color-text-primary: #33363A;
   --color-text-primary--on-dark: #ffffff;
   --color-text-secondary: rgba(51, 54, 58, 0.6);
   --color-text-tertiary: #A56B07;
-  --color-text-quaternary: rgba(193, 134, 31, 0.89);
+  --color-text-quaternary: #C1861F;
   --color-text-quinary: rgba(51, 54, 58, 0.6);
   --color-button-background: #7236F5;
 }
 
 body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 100%;
   height: 100vh;
   position: relative;
@@ -25,18 +30,83 @@ body {
 
 h1 {
   color: var(--color-text-primary);
+  font-size: 64px;
 }
 
 h2 {
   color:  var(--color-text-tertiary);
+  font-size: 50px;
+  font-weight: 900;
+font-size: 50px;
+line-height: 61px;
 }
 
 h3 {
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 39px;
+  color: var(--color-text-quaternary);
+}
+
+h4 {
+  font-size: 20px;
   color: var(--color-text-quaternary);
 }
 
 p {
   color: var(--color-text-quinary);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: absolute;
+  top: 0;
+  width: 100%;
+  padding: 48px;
+}
+
+header .rounds-container {
+  text-align: center;
+}
+
+header .draws-counter {
+  margin-top: 8px;
+  font-weight: 900;
+  font-size: 14px;
+  line-height: 17px;
+  color: var(--color-text-quaternary);
+}
+
+#round-winner-message {
+  width: 100%;
+  position: absolute;
+  top: 22%;
+  text-align: center;
+}
+
+.cards-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-direction: row;
+  width: 90%;
+  margin-top: 80px;
+}
+
+.cards-container .card {
+  background: #E8E8ED;
+  box-shadow: 0px 12px 24px rgba(187, 121, 0, 0.6);
+  border-radius: 16px;
+  width: 204px;
+  height: 264px;
+  position: relative;
+  text-align: center;
+}
+
+.cards-container .card img {
+  margin-top: -66px;
 }
 
 .cards-left {
@@ -79,6 +149,5 @@ button {
   font-size: 20px;
   line-height: 24px;
   text-align: center;
-  text-transform: uppercase;
   cursor: pointer;
 }
