@@ -1,5 +1,20 @@
 import cardsData from "./data/cards-data.js";
 
+let player1Name = document.getElementById("player1-name");
+let player2Name = document.getElementById("player2-name");
+let roundWinnerMessage = document.getElementById("round-winner-message");
+let numberOfDrawsMessage = document.getElementById("number-of-draws");
+let roundsCounterMessage = document.getElementsByClassName("rounds");
+let player2PointsOnRoundMessage = document.getElementById("player2-points-on-round");
+let player1PointsOnRoundMessage = document.getElementById("player1-points-on-round");
+let player1PointsMessage = document.getElementById("player1-points");
+let player2PointsMessage = document.getElementById("player2-points");
+let drawButton = document.getElementById("draw-button");
+let damageNumberUserMessage = document.getElementById("damage-number-user");
+let damageNumberComputerMessage = document.getElementById("damage-number-computer");
+let pokemonImageUserDraw = document.getElementById('pokemon-image-user')
+let pokemonImageComputerDraw = document.getElementById('pokemon-image-computer');
+
 class Player {
     constructor(name) {
         this.playerName = name;
@@ -34,12 +49,12 @@ class Game {
 
     draw() {
         if (this.rounds === 4) {
-            document.getElementById("draw-button").disabled = true;
+            drawButton.disabled = true;
 
             if (game.userPoints > game.computerPoints) {
-                document.getElementById("round-winner-message").innerHTML = `${humanPlayer.playerName} wins the game`;
+                roundWinnerMessage.innerHTML = `${humanPlayer.playerName} wins the game`;
             } else if (game.computerPoints > game.userPoints) {
-                document.getElementById("round-winner-message").innerHTML = `${computerPlayer.playerName} wins the game`;
+                roundWinnerMessage.innerHTML = `${computerPlayer.playerName} wins the game`;
             }
 
             setTimeout(() => {
@@ -54,52 +69,52 @@ class Game {
 
         this.draws = ++this.draws;
         this.drawsPerRound = ++this.drawsPerRound;
-        document.getElementById("number-of-draws").innerHTML = this.drawsPerRound;
-        document.getElementsByClassName("rounds")[0].innerHTML = game.rounds;
-        document.getElementsByClassName("rounds")[1].innerHTML = game.rounds;
+        numberOfDrawsMessage.innerHTML = this.drawsPerRound;
+        roundsCounterMessage[0].innerHTML = game.rounds;
+        roundsCounterMessage[1].innerHTML = game.rounds;
 
         if (damageOfComputerSelection > damageOfUserSelection) {
             game.computerPoints = ++game.computerPoints;
             game.computerPointsPerRound = ++game.computerPointsPerRound;
-            document.getElementById("player2-points-on-round").innerHTML = game.computerPointsPerRound;
+            player2PointsOnRoundMessage.innerHTML = game.computerPointsPerRound;
         } else if (damageOfComputerSelection < damageOfUserSelection) {
             game.userPoints = ++game.userPoints;
             game.userPointsPerRound = ++game.userPointsPerRound;
-            document.getElementById("player1-points-on-round").innerHTML = game.userPointsPerRound;
+            player1PointsOnRoundMessage.innerHTML = game.userPointsPerRound;
         }
 
         this.evalRound();
     }
 
     evalRound() {
-        let img = document.createElement("IMG");
-        img.src = "./assets/images/Bookmark.svg";
-        img.style.width = "48px";
+        let starImg = document.createElement("IMG");
+        starImg.src = "./assets/images/Bookmark.svg";
+        starImg.style.width = "48px";
 
         if (this.draws % 3 == 0) {
-            document.getElementById("draw-button").disabled = true;
+            drawButton.disabled = true;
             this.rounds = ++this.rounds;
             this.drawsPerRound = 0;
 
             if (game.userPointsPerRound > game.computerPointsPerRound) {
-                document.getElementById("round-winner-message").innerHTML = `${humanPlayer.playerName} wins`;
-                document.getElementById("player1-points").appendChild(img);
-                document.getElementById("player1-points-on-round").innerHTML = game.userPointsPerRound;
+                roundWinnerMessage.innerHTML = `${humanPlayer.playerName} wins`;
+                player1PointsMessage.appendChild(starImg);
+                player1PointsOnRoundMessage.innerHTML = game.userPointsPerRound;
             } else if (game.computerPointsPerRound > game.userPointsPerRound) {
-                document.getElementById("round-winner-message").innerHTML = `${computerPlayer.playerName} wins`;
-                document.getElementById("player2-points").appendChild(img);
-                document.getElementById("player2-points-on-round").innerHTML = game.computerPointsPerRound;
+                roundWinnerMessage.innerHTML = `${computerPlayer.playerName} wins`;
+                player2PointsMessage.appendChild(starImg);
+                player2PointsOnRoundMessage.innerHTML = game.computerPointsPerRound;
             }
 
             setTimeout(() => {
                 game.computerPointsPerRound = 0;
                 game.userPointsPerRound = 0;
-                document.getElementById("player1-points-on-round").innerHTML = game.userPointsPerRound;
-                document.getElementById("player2-points-on-round").innerHTML = game.computerPointsPerRound;
-                document.getElementById("round-winner-message").innerHTML = ` `;
+                player1PointsOnRoundMessage.innerHTML = game.userPointsPerRound;
+                player2PointsOnRoundMessage.innerHTML = game.computerPointsPerRound;
+                roundWinnerMessage.innerHTML = ` `;
                 game.computerPointsPerRound = 0;
                 game.userPointsPerRound = 0;
-                document.getElementById("draw-button").disabled = false;
+                drawButton.disabled = false;
             }, 3000);
         }
     }
@@ -108,8 +123,8 @@ class Game {
         let shuffled = this.cards.sort(() => { return .5 - Math.random() });
         let selected = shuffled.slice(0, 1);
 
-        document.getElementById("damage-number-user").innerHTML = selected[0].damage;
-        document.getElementById('pokemon-image-user').src = `./assets/images/${selected[0].name}.svg`;
+        damageNumberUserMessage.innerHTML = selected[0].damage;
+        pokemonImageUserDraw.src = `./assets/images/${selected[0].name}.svg`;
 
         arrayRemove(this.cards, selected);
         this.playedCardsHuman.push(selected);
@@ -121,8 +136,8 @@ class Game {
         let shuffled = this.cards.sort(() => { return .5 - Math.random() });
         let selected = shuffled.slice(0, 1);
 
-        document.getElementById("damage-number-computer").innerHTML = selected[0].damage;
-        document.getElementById('pokemon-image-computer').src = `./assets/images/${selected[0].name}.svg`;
+        damageNumberComputerMessage.innerHTML = selected[0].damage;
+        pokemonImageComputerDraw.src = `./assets/images/${selected[0].name}.svg`;
 
         arrayRemove(this.cards, selected);
         this.playedCardsComputer.push(selected);
@@ -133,9 +148,9 @@ class Game {
 
 const game = new Game(nameOfPlayer, nameOfComputer);
 
-document.getElementById("player1-name").innerHTML = humanPlayer.playerName;
-document.getElementById("player2-name").innerHTML = computerPlayer.playerName;
-document.getElementById("draw-button").addEventListener("click", game.draw);
+player1Name.innerHTML = humanPlayer.playerName;
+player2Name.innerHTML = computerPlayer.playerName;
+drawButton.addEventListener("click", game.draw);
 
 function arrayRemove(arr, value) {
     for (var i = 0; i < arr.length; i++) {
@@ -145,3 +160,5 @@ function arrayRemove(arr, value) {
         }
     }
 }
+
+document.getElementsByTagName("body")[0].style.opacity = "1"
