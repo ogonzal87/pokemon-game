@@ -15,6 +15,11 @@ let damageNumberComputerMessage = document.getElementById("damage-number-compute
 let pokemonImageUserDraw = document.getElementById('pokemon-image-user')
 let pokemonImageComputerDraw = document.getElementById('pokemon-image-computer');
 
+const cardsShuffle1 = document.getElementsByClassName("cards-center1");
+const cardsShuffle2 = document.getElementsByClassName("cards-center2");
+const drawCardUser = document.getElementsByClassName("draw-card-user");
+const drawCardComputer = document.getElementsByClassName("draw-card-computer");
+
 class Player {
     constructor(name) {
         this.playerName = name;
@@ -48,42 +53,50 @@ class Game {
     }
 
     draw() {
-        if (this.rounds === 4) {
-            drawButton.disabled = true;
+        timeLineForCardsShuffle1.reversed(!timeLineForCardsShuffle1.reversed());
+        timeLineForCardsShuffle2.reversed(!timeLineForCardsShuffle2.reversed());
 
-            if (game.userPoints > game.computerPoints) {
-                roundWinnerMessage.innerHTML = `${humanPlayer.playerName} wins the game`;
-            } else if (game.computerPoints > game.userPoints) {
-                roundWinnerMessage.innerHTML = `${computerPlayer.playerName} wins the game`;
+        setTimeout(() => {
+            timeLineForDrawCardUser.reversed(!timeLineForDrawCardUser.reversed());
+            timeLineForDrawCardComputer.reversed(!timeLineForDrawCardComputer.reversed());
+
+            if (this.rounds === 4) {
+                drawButton.disabled = true;
+
+                if (game.userPoints > game.computerPoints) {
+                    roundWinnerMessage.innerHTML = `${humanPlayer.playerName} wins the game`;
+                } else if (game.computerPoints > game.userPoints) {
+                    roundWinnerMessage.innerHTML = `${computerPlayer.playerName} wins the game`;
+                }
+
+                setTimeout(() => {
+                    location.reload();
+                }, 8000);
             }
 
-            setTimeout(() => {
-                location.reload();
-            }, 8000);
-        }
+            let getComputerSelection = this.drawCardForComputer();
+            let getUserSelection = this.drawCardForUser();
+            let damageOfComputerSelection = getComputerSelection[0].damage;
+            let damageOfUserSelection = getUserSelection[0].damage;
 
-        let getComputerSelection = this.drawCardForComputer();
-        let getUserSelection = this.drawCardForUser();
-        let damageOfComputerSelection = getComputerSelection[0].damage;
-        let damageOfUserSelection = getUserSelection[0].damage;
+            this.draws = ++this.draws;
+            this.drawsPerRound = ++this.drawsPerRound;
+            numberOfDrawsMessage.innerHTML = this.drawsPerRound;
+            roundsCounterMessage[0].innerHTML = game.rounds;
+            roundsCounterMessage[1].innerHTML = game.rounds;
 
-        this.draws = ++this.draws;
-        this.drawsPerRound = ++this.drawsPerRound;
-        numberOfDrawsMessage.innerHTML = this.drawsPerRound;
-        roundsCounterMessage[0].innerHTML = game.rounds;
-        roundsCounterMessage[1].innerHTML = game.rounds;
+            if (damageOfComputerSelection > damageOfUserSelection) {
+                game.computerPoints = ++game.computerPoints;
+                game.computerPointsPerRound = ++game.computerPointsPerRound;
+                player2PointsOnRoundMessage.innerHTML = game.computerPointsPerRound;
+            } else if (damageOfComputerSelection < damageOfUserSelection) {
+                game.userPoints = ++game.userPoints;
+                game.userPointsPerRound = ++game.userPointsPerRound;
+                player1PointsOnRoundMessage.innerHTML = game.userPointsPerRound;
+            }
 
-        if (damageOfComputerSelection > damageOfUserSelection) {
-            game.computerPoints = ++game.computerPoints;
-            game.computerPointsPerRound = ++game.computerPointsPerRound;
-            player2PointsOnRoundMessage.innerHTML = game.computerPointsPerRound;
-        } else if (damageOfComputerSelection < damageOfUserSelection) {
-            game.userPoints = ++game.userPoints;
-            game.userPointsPerRound = ++game.userPointsPerRound;
-            player1PointsOnRoundMessage.innerHTML = game.userPointsPerRound;
-        }
-
-        this.evalRound();
+            this.evalRound();
+        }, 5000);
     }
 
     evalRound() {
@@ -161,4 +174,53 @@ function arrayRemove(arr, value) {
     }
 }
 
-document.getElementsByTagName("body")[0].style.opacity = "1"
+
+
+
+/// ANIMATION
+
+const timeLineForCardsShuffle1 = new TimelineMax({ paused: true, repeat: 2 });
+const timeLineForCardsShuffle2 = new TimelineMax({ paused: true, repeat: 2 });
+const eachShuffleDuration = .3;
+
+timeLineForCardsShuffle1
+    .to(cardsShuffle1, eachShuffleDuration, { y: 45, x: -100 })
+    .to(cardsShuffle1, eachShuffleDuration, { y: 167, x: 200 })
+    .to(cardsShuffle1, eachShuffleDuration, { y: 50, x: 240 })
+    .to(cardsShuffle1, eachShuffleDuration, { y: 0, x: 133 })
+    .restart(true);
+
+timeLineForCardsShuffle2
+    .to(cardsShuffle2, eachShuffleDuration, { y: -45, x: 100 })
+    .to(cardsShuffle2, eachShuffleDuration, { y: 157, x: -100 })
+    .to(cardsShuffle2, eachShuffleDuration, { y: -70, x: -300 })
+    .to(cardsShuffle2, eachShuffleDuration, { y: 0, x: -133 })
+    .restart(true);
+
+
+const timeLineForDrawCardUser = new TimelineMax({ paused: true });
+const timeLineForDrawCardComputer = new TimelineMax({ paused: true });
+const drawInitialCardDuration = .3;
+
+timeLineForDrawCardUser
+    .to(drawCardUser, drawInitialCardDuration, { y: 0, x: 0 })
+    .to(drawCardUser, drawInitialCardDuration, { x: -5000, y: 150, delay: 4 })
+    .to(drawCardUser, drawInitialCardDuration, { x: -5000, y: 3000 })
+    .to(drawCardUser, 1, { x: 300, y: 600 })
+    .restart(true);
+timeLineForDrawCardComputer
+    .to(drawCardComputer, drawInitialCardDuration, { y: 0, x: 0, delay: .5 })
+    .to(drawCardComputer, drawInitialCardDuration, { x: 5000, y: 150, delay: 4.1 })
+    .to(drawCardComputer, drawInitialCardDuration, { x: 5000, y: 3000 })
+    .to(drawCardComputer, 1, { x: -300, y: 600 })
+    .restart(true);
+
+
+
+
+
+
+// document.getElementsByTagName("body")[0].style.opacity = "1";
+
+
+
