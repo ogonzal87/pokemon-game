@@ -6,6 +6,7 @@
   padding: 0;
   box-sizing: border-box;
   text-transform: uppercase;
+  transition: all 1s ease;
 
   --color-background-app:  radial-gradient(150.44% 150.44% at 50% 36.28%, #F6C744 0%, #FC9C27 100%);
   --color-text-primary: #33363A;
@@ -91,7 +92,7 @@ header .draws-counter {
   align-items: center;
   justify-content: space-around;
   flex-direction: row;
-  width: 90%;
+  width: 60%;
   margin-top: 80px;
 }
 
@@ -105,8 +106,33 @@ header .draws-counter {
   text-align: center;
 }
 
+.cards-container .card-border {
+  border: 4px solid rgba(51, 54, 58, 0.05);
+  box-sizing: border-box;
+  border-radius: 16px;
+  width: 186px;
+  height: 248px;
+  top: 8px;
+  right: 8px;
+  position: absolute;
+}
+
 .cards-container .card img {
   margin-top: -66px;
+  margin-left: -93px;
+  position: absolute;
+  z-index: 999;
+  width: 188px;
+}
+
+.cards-container .card-text {
+  margin-top: 143px;
+}
+
+
+.cards-container .card p {
+  font-weight: 900;
+  margin-top: 40px;
 }
 
 .cards-left {
@@ -150,4 +176,9 @@ button {
   line-height: 24px;
   text-align: center;
   cursor: pointer;
+}
+
+button:disabled {
+  opacity: .5;
+  cursor: not-allowed;
 }

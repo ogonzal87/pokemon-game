@@ -4,13 +4,13 @@ const cardsData = [
         damage: 64
     }, {
         name: "Caterpie",
-        damage: 40
+        damage: 42
     }, {
         name: "Abra",
         damage: 62
     }, {
         name: "Weedle",
-        damage: 40
+        damage: 44
     }, {
         name: "Mew",
         damage: 60
@@ -34,10 +34,10 @@ const cardsData = [
         damage: 70
     }, {
         name: "Jigglypuff",
-        damage: 80
+        damage: 85
     }, {
         name: "Meowth",
-        damage: 55
+        damage: 51
     }, {
         name: "Pidgey",
         damage: 23
@@ -52,7 +52,7 @@ const cardsData = [
         damage: 99
     }, {
         name: "Charmander",
-        damage: 40
+        damage: 36
     }, {
         name: "Squirtle",
         damage: 20
