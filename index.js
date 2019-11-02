@@ -53,12 +53,12 @@ class Game {
     }
 
     draw() {
-        timeLineForCardsShuffle1.reversed(!timeLineForCardsShuffle1.reversed());
-        timeLineForCardsShuffle2.reversed(!timeLineForCardsShuffle2.reversed());
+        timeLineForCardsShuffle1.play();
+        timeLineForCardsShuffle2.play();
 
         setTimeout(() => {
-            timeLineForDrawCardUser.reversed(!timeLineForDrawCardUser.reversed());
-            timeLineForDrawCardComputer.reversed(!timeLineForDrawCardComputer.reversed());
+            timeLineForDrawCardUser.play();
+            timeLineForDrawCardComputer.play();
 
             if (this.rounds === 4) {
                 drawButton.disabled = true;
