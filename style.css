@@ -19,7 +19,7 @@
 }
 
 body {
-  /* opacity: 0; */
+  opacity: 0;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -28,6 +28,7 @@ body {
   height: 100vh;
   position: relative;
   background: var(--color-background-app);
+  overflow: hidden;
 }
 
 h1 {
@@ -39,8 +40,8 @@ h2 {
   color:  var(--color-text-tertiary);
   font-size: 50px;
   font-weight: 900;
-font-size: 50px;
-line-height: 61px;
+  font-size: 50px;
+  line-height: 61px;
 }
 
 h3 {
@@ -119,11 +120,13 @@ header .draws-counter {
 }
 
 .cards-container .card img {
-  margin-top: -66px;
-  margin-left: -93px;
+  top: -200px;
+  left: 10px;
   position: absolute;
   z-index: 999;
   width: 188px;
+  opacity: 0;
+  animation: bouncy 1 ;
 }
 
 .cards-container .card-text {
@@ -131,13 +134,12 @@ header .draws-counter {
 }
 
 .draw-card-user {
-  transform: translateY(600px) translateX(300px);
+  transform: translateY(1000px) translateX(300px);
 }
 
 .draw-card-computer {
-  transform: translateY(600px) translateX(-300px);
+  transform: translateY(1000px) translateX(-300px);
 }
-
 
 .cards-container .card p {
   font-weight: 900;
@@ -157,11 +159,6 @@ header .draws-counter {
   justify-content: center;
   position: absolute;
   bottom: 0;
-}
-
-.cards-center {
-  bottom: 0;
-  text-align: center;
 }
 
 .cards-center1 {
