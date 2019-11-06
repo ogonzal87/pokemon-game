@@ -6,7 +6,6 @@
   padding: 0;
   box-sizing: border-box;
   text-transform: uppercase;
-  transition: all 1s ease;
 
   --color-background-app:  radial-gradient(150.44% 150.44% at 50% 36.28%, #F6C744 0%, #FC9C27 100%);
   --color-text-primary: #33363A;
