@@ -19,6 +19,7 @@ let pokemonSvg = document.getElementsByClassName("pokemon-svg");
 
 const cardsShuffle1 = document.getElementsByClassName("cards-center1");
 const cardsShuffle2 = document.getElementsByClassName("cards-center2");
+const cardsShuffle3 = document.getElementsByClassName("cards-center3");
 const drawCardUser = document.getElementsByClassName("draw-card-user");
 const drawCardComputer = document.getElementsByClassName("draw-card-computer");
 
@@ -57,8 +58,11 @@ class Game {
     draw() {
         timeLineForCardsShuffle1.play();
         timeLineForCardsShuffle2.play();
+        timeLineForCardsShuffle3.play();
         timeLineForCardsShuffle1.restart();
         timeLineForCardsShuffle2.restart();
+        timeLineForCardsShuffle3.restart();
+
 
         drawButton.disabled = true;
 
@@ -98,11 +102,15 @@ class Game {
             if (damageOfComputerSelection > damageOfUserSelection) {
                 game.computerPoints = ++game.computerPoints;
                 game.computerPointsPerRound = ++game.computerPointsPerRound;
-                player2PointsOnRoundMessage.innerHTML = game.computerPointsPerRound;
+                setTimeout(() => {
+                    player2PointsOnRoundMessage.innerHTML = game.computerPointsPerRound;
+                }, 2)
             } else if (damageOfComputerSelection < damageOfUserSelection) {
                 game.userPoints = ++game.userPoints;
                 game.userPointsPerRound = ++game.userPointsPerRound;
-                player1PointsOnRoundMessage.innerHTML = game.userPointsPerRound;
+                setTimeout(() => {
+                    player1PointsOnRoundMessage.innerHTML = game.userPointsPerRound;
+                }, 2)
             }
             this.evalRound();
         }, 2500);
@@ -188,22 +196,44 @@ function arrayRemove(arr, value) {
     });
 }
 
-/// ANIMATION
+
+/// ANIMATION ////
 
 // Cards Shuffle
-
 const timeLineForCardsShuffle1 = new TimelineMax({ paused: true });
 const timeLineForCardsShuffle2 = new TimelineMax({ paused: true });
+const timeLineForCardsShuffle3 = new TimelineMax({ paused: true });
 const eachShuffleDuration = 2;
 
 let shuffleCards1Path = {
-    curviness: 0,
-    values: [{ y: 50, x: -40 }, { y: 0, x: 133 }]
+    curviness: 2,
+    values: [
+        { y: 80, x: 300 },
+        { y: -10, x: 10 },
+        { y: 40, x: -60 },
+        { y: -100, x: 50 },
+        { y: 80, x: 297 },
+    ]
 }
 
 let shuffleCards2Path = {
-    curviness: 1.25,
-    values: [{ y: 200, x: 600 }, { y: 0, x: -133 }]
+    curviness: 2,
+    values: [
+        { y: -1, x: 3 },
+        { y: -10, x: 10 },
+        { y: 10, x: -10 },
+        { y: 100, x: -50 },
+        { y: 80, x: -16 },
+    ]
+}
+
+let shuffleCards3Path = {
+    curviness: 2,
+    values: [
+        { y: -5, x: 5 },
+        { y: -100, x: -50 },
+        { y: 80, x: -266 },
+    ]
 }
 
 timeLineForCardsShuffle1.to(cardsShuffle1, eachShuffleDuration, {
@@ -214,38 +244,35 @@ timeLineForCardsShuffle2.to(cardsShuffle2, eachShuffleDuration, {
     bezier: shuffleCards2Path
 })
 
+timeLineForCardsShuffle3.to(cardsShuffle3, eachShuffleDuration, {
+    bezier: shuffleCards3Path
+})
+
 
 // Drawn Cards
 const timeLineForDrawCardUser = new TimelineMax({ paused: true });
 const timeLineForDrawCardComputer = new TimelineMax({ paused: true });
-const drawInitialCardDuration = .3;
+const drawInitialCardDuration = 1;
 
 timeLineForDrawCardUser
     .to(drawCardUser, drawInitialCardDuration, { y: 0, x: 0 })
-    .to(drawCardUser, drawInitialCardDuration, { x: -5000, y: 250, delay: 4 })
-    .to(drawCardUser, drawInitialCardDuration, { x: -5000, y: 3000 })
-    .to(drawCardUser, 1, { x: 300, y: 800 })
+    .to(drawCardUser, drawInitialCardDuration, { x: -1000, y: 150, delay: 4 })
+    .to(drawCardUser, drawInitialCardDuration, { x: -1000, y: 1000 })
+    .to(drawCardUser, 1.5, { x: 300, y: 800 })
 
 timeLineForDrawCardComputer
     .to(drawCardComputer, drawInitialCardDuration, { y: 0, x: 0, delay: .3 })
-    .to(drawCardComputer, drawInitialCardDuration, { x: 5000, y: 250, delay: 4.1 })
-    .to(drawCardComputer, drawInitialCardDuration, { x: 5000, y: 3000 })
-    .to(drawCardComputer, 1, { x: -300, y: 800 })
-
-
+    .to(drawCardComputer, drawInitialCardDuration, { x: 1000, y: 150, delay: 4.1 })
+    .to(drawCardComputer, drawInitialCardDuration, { x: 1000, y: 1000 })
+    .to(drawCardComputer, 1.5, { x: -300, y: 800 })
 
 // Pokemon svg
 const tlPokemonImageUserDraw = new TimelineMax({ paused: true });
+
+tlPokemonImageUserDraw.set(pokemonSvg, { autoAlpha: 0 });
+
 tlPokemonImageUserDraw
-    .to(pokemonSvg, .8, { top: -50 })
-    .to(pokemonSvg, .8, { top: -66 })
-    // .to(pokemonSvg, .1, { scaleX: 1.5, scaleY: 0.6, }, "-=0.04")
-
-    // .to(pokemonSvg, .1, { scaleX: 1, scaleY: 1, })
-    .to(pokemonSvg, .1, { opacity: 1 })
-    .to(pokemonSvg, .01, { scaleX: 1, scaleY: 1, }, "-=0.04")
-    .to(pokemonSvg, 0.1, { x: "+=20", yoyo: true, repeat: 5 });
-
-
+    .to(pokemonSvg, 1.5, { top: -80 })
+    .to(pokemonSvg, 2, { autoAlpha: 1, ease: Linear.easeNone }, 0);
 
 document.getElementsByTagName("body")[0].style.opacity = "1";

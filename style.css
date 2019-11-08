@@ -119,13 +119,12 @@ header .draws-counter {
 }
 
 .cards-container .card img {
+  opacity: 0;
   top: -200px;
   left: 10px;
   position: absolute;
-  z-index: 999;
+  z-index: 29;
   width: 188px;
-  opacity: 0;
-  animation: bouncy 1 ;
 }
 
 .cards-container .card-text {
@@ -161,11 +160,15 @@ header .draws-counter {
 }
 
 .cards-center1 {
-  transform: translateX(133px)
+  transform: translateX(297px) translateY(80px);
 }
 
 .cards-center2 {
-  transform: translateX(-133px)
+  transform: translateX(-26px) translateY(80px);
+}
+
+.cards-center3 {
+  transform: translateX(-266px) translateY(80px);
 }
 
 .cards-right {
